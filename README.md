@@ -1,2 +1,2 @@
 # tag-finder
-Dicord Tag Finder Tool
+Discord Tag Finder Tool
