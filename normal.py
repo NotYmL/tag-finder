@@ -1,4 +1,4 @@
-import requests, time
+import requests, time, re
 
 # - - - - - - - - - #
 TOKEN = ""
@@ -6,10 +6,14 @@ NAME = ""
 # - - - - - - - - - #
 
 all_options = []
+regex = re.compile("(API_VERSION: '.',)")
+isnum = re.compile('[0-9]')
+res = requests.get("https://discord.com/").text
+apiv = str(re.search(isnum, re.search(regex, res).group()).group())
 
 def addF(name, tag, token):
     headers = { "Accept": "*/*", "Content-Type": "application/json", "Authorization": token }
-    res = requests.post("https://discord.com/api/v9/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag}) #send a friend request
+    res = requests.post("https://discord.com/api/"+apiv+"/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag}) #send a friend request
 
     if(res.status_code == 429): #if program is sending too many requests to discord sleep for 20s and call recursion
         time.sleep(20)
