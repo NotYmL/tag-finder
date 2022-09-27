@@ -1,9 +1,10 @@
-import requests, time
+import requests, time, re
 
 TOKEN = ""
 NAME = ""
 
 all_options = []
+apiv = str(re.search(re.compile("(?<=API_VERSION: ')([0-9]|[1-9][0-9])(?=')"), requests.get("https://discord.com/").text).group())
 
 Blazarw_mi_daje_head= {
     "Accept": "*/*",
@@ -12,7 +13,7 @@ Blazarw_mi_daje_head= {
 }
 
 for i in range(1, 10000):
-    res = requests.post("https://discord.com/api/v9/users/@me/relationships", headers=Blazarw_mi_daje_head, json={"username": NAME, "discriminator": i})
+    res = requests.post("https://discord.com/api/"+apiv+"/users/@me/relationships", headers=Blazarw_mi_daje_head, json={"username": NAME, "discriminator": i})
     # print(res)
     if(str(res.status_code) == "204"):
         print(NAME+"#"+str(i))
