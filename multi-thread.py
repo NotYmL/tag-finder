@@ -1,4 +1,4 @@
-import requests, time, threading
+import requests, time, threading, re
 from math import trunc
 
 # - - - - - - - - - #
@@ -9,10 +9,14 @@ NAME = ""
 
 all_options = []
 threads=[]
+regex = re.compile("(API_VERSION: '.',)")
+isnum = re.compile('[0-9]')
+res = requests.get("https://discord.com/").text
+apiv = str(re.search(isnum, re.search(regex, res).group()).group())
 
 def addF(name, tag, token):
     headers = { "Accept": "*/*", "Content-Type": "application/json", "Authorization": token }
-    res = requests.post("https://discord.com/api/v9/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag})
+    res = requests.post("https://discord.com/api/"+apiv+"/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag})
     if(res.status_code == 429):
         time.sleep(20)
         addF(name, tag, token)
