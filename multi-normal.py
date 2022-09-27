@@ -8,7 +8,7 @@ NAME = ""
 # - - - - - - - - - #
 
 all_options = []
-apiv = str(re.search(re.compile("(?<=API_VERSION: ')([0-9]|[1-9][0-9])(?=')"), requests.get("https://discord.com/").text).group())
+apiv = str(re.search(re.compile("(?<=API_VERSION: ')[0-9]{1,2}"), requests.get("https://discord.com/").text).group())
 
 def addF(name, tag, token):
     headers = { "Accept": "*/*", "Content-Type": "application/json", "Authorization": token }
