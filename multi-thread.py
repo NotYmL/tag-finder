@@ -1,15 +1,18 @@
-import requests, time, threading, re
+import requests, time, threading, re, sys
 from math import trunc
 
 # - - - - - - - - - #
 main_TOKEN = ""
-TOKENS = [""]
-NAME = ""
+TOKENS = [
+    "",
+]
+NAME = ".YmL"
 # - - - - - - - - - #
 
 all_options = []
 threads=[]
 apiv = str(re.search(re.compile("(?<=API_VERSION: ')([0-9]|[1-9][0-9])(?=')"), requests.get("https://discord.com/").text).group())
+last_tag=1
 
 def addF(name, tag, token):
     headers = { "Accept": "*/*", "Content-Type": "application/json", "Authorization": token }
@@ -18,7 +21,19 @@ def addF(name, tag, token):
         time.sleep(20)
         addF(name, tag, token)
     else:
+        global last_tag
+        last_tag+=1
         return res
+
+def status():
+    while True:
+        if(trunc(last_tag/9999*100) == 100):
+            break
+        time.sleep(0.001)
+        sys.stdout.write("\r")
+        sys.stdout.flush()
+        sys.stdout.write(str(trunc(last_tag/9999*100))+"%"+" ["+"█"*trunc(last_tag/9999*100)+" "*(100-trunc(last_tag/9999*100))+"]")
+    return 0
 
 def addFrom(x, z, name, token):
     for i in range(x, z):
@@ -33,6 +48,13 @@ def main():
     if(len(main_TOKEN) < 1 and len(NAME) < 1 and len("".join(TOKENS)) < 1):
         print("Main Token or Tokens or Name missing!")
         return None
+
+    print(
+        "\n"+("-"*100)+"\n",
+        "API version:", apiv,
+        "\nWorst Time:", str((9999/5*len(TOKENS))/3600)+"h",
+        "\n"+("-"*100)+"\n"
+    )
 
     perToken = trunc(10000/len(TOKENS))
     left = 10000 - perToken
@@ -51,6 +73,9 @@ def main():
 
     for x in threads:
         x.start()
+
+    statusT = threading.Thread(target = status, args = ())
+    statusT.start()
 
     for x in threads:
         x.join()
