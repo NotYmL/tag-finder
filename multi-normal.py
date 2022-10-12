@@ -55,6 +55,5 @@ def main():
         addF(usrname, tag, main_TOKEN)
         time.sleep(4)
 
-
 if(__name__ == "__main__"):
     main()
