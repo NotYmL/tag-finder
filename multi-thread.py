@@ -16,7 +16,7 @@ last_tag=1
 
 def addF(name, tag, token):
     headers = { "Accept": "*/*", "Content-Type": "application/json", "Authorization": token }
-    res = requests.post("https://discord.com/api/"+apiv+"/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag})
+    res = requests.post("https://discord.com/api/v"+apiv+"/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag})
     if(res.status_code == 429):
         time.sleep(20)
         addF(name, tag, token)
