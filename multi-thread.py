@@ -50,10 +50,10 @@ def main():
         return None
 
     print(
-        "\n"+("-"*100)+"\n",
+        "\n"+("-"*__import__("os").get_terminal_size()[0])+"\n",
         "API version:", apiv,
         "\nWorst Time:", str((9999/5*len(TOKENS))/3600)+"h",
-        "\n"+("-"*100)+"\n"
+        "\n"+("-"*__import__("os").get_terminal_size()[0])+"\n"
     )
 
     perToken = trunc(10000/len(TOKENS))
