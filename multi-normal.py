@@ -12,7 +12,7 @@ apiv = str(re.search(re.compile("(?<=API_VERSION: ')[0-9]{1,2}"), requests.get("
 
 def addF(name, tag, token):
     headers = { "Accept": "*/*", "Content-Type": "application/json", "Authorization": token }
-    res = requests.post("https://discord.com/api/"+apiv+"/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag})
+    res = requests.post("https://discord.com/api/v"+apiv+"/users/@me/relationships", headers=headers, json={"username": name, "discriminator": tag})
 
     if(res.status_code == 429): #if program is sending too many requests to discord sleep for 20s and call recursion
         time.sleep(20)
