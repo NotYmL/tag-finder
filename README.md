@@ -15,5 +15,5 @@
 
 ## Installation Guide
 ```sh
-git clone https://github.com/NotYmL/tag-finder.git/ && pip install requests && pip install regex
+git clone https://github.com/NotYmL/tag-finder.git/ && pip install requests
 ```
