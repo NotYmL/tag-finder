@@ -13,8 +13,7 @@ Blazarw_mi_daje_head= {
 }
 
 for i in range(1, 10000):
-    res = requests.post("https://discord.com/api/"+apiv+"/users/@me/relationships", headers=Blazarw_mi_daje_head, json={"username": NAME, "discriminator": i})
-    # print(res)
+    res = requests.post("https://discord.com/api/v"+apiv+"/users/@me/relationships", headers=Blazarw_mi_daje_head, json={"username": NAME, "discriminator": i})
     if(str(res.status_code) == "204"):
         print(NAME+"#"+str(i))
         all_options.append(NAME+"#"+str(i))
